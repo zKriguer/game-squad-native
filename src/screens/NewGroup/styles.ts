@@ -10,9 +10,10 @@ padding: 24px;
 export const Content = style.View`
 flex: 1;
 justify-content: center;
+gap: 20px;
 `;
 
 export const Icon = style(UsersThree).attrs(({ theme }) => ({
   color: theme.COLORS.GREEN_700,
   size: 56,
-}))`align-self: "center"`;
+}))`align-self: center`;
