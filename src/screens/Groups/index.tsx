@@ -18,19 +18,19 @@ export function Groups() {
   return (
     <Container>
       <Header />
-      <Highlight title="SQUADS" subtitle="Junte seu squad aqui!" />
+      <Highlight title="Turmas" subtitle="Jogue com sua turma" />
 
       <FlatList
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => (
-          <ListEmpty message="Cadastre seu primeiro squad 🤗!" />
+          <ListEmpty message="Cadastre sua primeira turma 🤗! " />
         )}
         data={groups}
         keyExtractor={(group) => group}
         renderItem={({ item }) => <GroupCard title={item} />}
       />
 
-      <Button title="CRIAR SQUAD" onPressOut={handleNewGroup} />
+      <Button title="Criar nova turma" onPressOut={handleNewGroup} />
     </Container>
   );
 }
