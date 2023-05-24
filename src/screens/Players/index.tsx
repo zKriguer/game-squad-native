@@ -9,9 +9,14 @@ import { useState } from "react";
 import { PlayerCard } from "@components/PlayerCard/Index";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
+import { useRoute } from "@react-navigation/native";
+import { IRoute } from "src/@types/route";
 
 export const Players = () => {
   const [team, setTeam] = useState("Time A");
+  const route: IRoute = useRoute();
+
+  const { group } = route.params;
   const [players, setPlayers] = useState([
     "Jogador 1",
     "jogador 2",
@@ -27,9 +32,9 @@ export const Players = () => {
   ]);
   return (
     <Container>
-      <Header showBackButton />
+      <Header showBackButton specificScreen={"groups"} />
       <Highlight
-        title="Nome do squad"
+        title={group}
         subtitle="Adicione os jogadores e separe os times"
       />
 
