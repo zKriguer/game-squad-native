@@ -27,6 +27,10 @@ export function Groups() {
     }
   }
 
+  function handleOpenGroup(group: string) {
+    navigation.navigate("players", { group });
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchGroups();
@@ -45,7 +49,9 @@ export function Groups() {
         )}
         data={groups}
         keyExtractor={(group) => group}
-        renderItem={({ item }) => <GroupCard title={item} />}
+        renderItem={({ item }) => (
+          <GroupCard title={item} onPressOut={() => handleOpenGroup(item)} />
+        )}
       />
 
       <Button title="Criar novo Squad" onPressOut={handleNewGroup} />
