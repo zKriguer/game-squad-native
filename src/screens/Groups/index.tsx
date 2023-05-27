@@ -8,9 +8,11 @@ import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getAllGroups } from "@storage/group/getAllGroups";
+import { Loading } from "@components/Loading";
 
 export function Groups() {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(true);
 
   function handleNewGroup() {
     navigation.navigate("newgroup");
@@ -20,10 +22,13 @@ export function Groups() {
 
   async function fetchGroups() {
     try {
+      setIsLoading(true);
       const data = await getAllGroups();
       setGroups(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -41,18 +46,21 @@ export function Groups() {
     <Container>
       <Header />
       <Highlight title="SQUADS" subtitle="Jogue com seu squad" />
-
-      <FlatList
-        contentContainerStyle={groups.length === 0 && { flex: 1 }}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Cadastre seu primeiro squad 🤗! " />
-        )}
-        data={groups}
-        keyExtractor={(group) => group}
-        renderItem={({ item }) => (
-          <GroupCard title={item} onPressOut={() => handleOpenGroup(item)} />
-        )}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          contentContainerStyle={groups.length === 0 && { flex: 1 }}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Cadastre seu primeiro squad 🤗! " />
+          )}
+          data={groups}
+          keyExtractor={(group) => group}
+          renderItem={({ item }) => (
+            <GroupCard title={item} onPressOut={() => handleOpenGroup(item)} />
+          )}
+        />
+      )}
 
       <Button title="Criar novo Squad" onPressOut={handleNewGroup} />
     </Container>

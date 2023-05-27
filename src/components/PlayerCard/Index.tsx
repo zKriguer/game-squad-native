@@ -1,3 +1,4 @@
+import { Vibration } from "react-native";
 import { Container, Icon, Name } from "./styles";
 import { ButtonIcon } from "@components/ButtonIcon";
 type Props = {
@@ -10,7 +11,14 @@ export const PlayerCard = ({ name, onRemove }: Props) => {
     <Container>
       <Icon name="person" />
       <Name>{name}</Name>
-      <ButtonIcon onPressOut={() => onRemove} icon="close" type="secondary" />
+      <ButtonIcon
+        onPressOut={() => {
+          Vibration.vibrate(20);
+          onRemove();
+        }}
+        icon="close"
+        type="secondary"
+      />
     </Container>
   );
 };

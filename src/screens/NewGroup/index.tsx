@@ -21,6 +21,7 @@ export const NewGroup = () => {
       if (group.trim().length === 0) {
         return Alert.alert("Novo Grupo", "O nome do grupo não pode ser vazio");
       }
+      setGroup("");
       await createGroup(group);
       navigation.navigate("players", { group });
     } catch (error) {
@@ -41,7 +42,12 @@ export const NewGroup = () => {
           title="Novo squad"
           subtitle="Crie seu squad para adicionar os jogadores"
         />
-        <Input placeholder="Nome do squad" onChangeText={setGroup} />
+        <Input
+          placeholder="Nome do squad"
+          onChangeText={setGroup}
+          returnKeyType="done"
+          onSubmitEditing={handleNewGroup}
+        />
         <Button title="Criar squad" onPressOut={handleNewGroup} />
       </Content>
     </Container>
